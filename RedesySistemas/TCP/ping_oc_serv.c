@@ -97,8 +97,8 @@ int main(int argc , char * argv[])
 			}
 		}
 	}
+	printf("\nCerramos el socket del servidor\n");
 	close(fd);
-	printf("Se ha cerrado el socket\n");
 	return 0;
 }
 
