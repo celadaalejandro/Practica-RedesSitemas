@@ -27,7 +27,6 @@ int main (int argc, char *argv[])
 	}
 	//Estructura que nos identifica
 	struct sockaddr_in client;				
-	//Rellenamos los datos que identificaran al servidor	
 	memset((char *)&client, 0, sizeof(client));
 	client.sin_family = AF_INET;
 	client.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -45,7 +44,7 @@ int main (int argc, char *argv[])
 	memset((char*)&server, 0, sizeof(server));
 	server.sin_family = AF_INET;
 	server.sin_port = htons(atoi(argv[2]));
-	client.sin_addr.s_addr = inet_addr(argv[1]);
+	server.sin_addr.s_addr = inet_addr(argv[1]);//¡¡
 	//Datos recibidos del servidor
 	char datos[100];
 	int size_data;
@@ -85,7 +84,7 @@ int main (int argc, char *argv[])
 			media=media+secs;
 			printf("Se ha recibido %d  bytes de la IP %s de su puerto %d. RTT:  %f micrisegundos.\n",size_data,inet_ntoa(server.sin_addr),ntohs(server.sin_port),secs);
 		}
-		sleep(0,2);
+		sleep(1);
 	}
 
 	printf("La media de RTT de las %d muestas es de %f microsegundos.\n",atoi(argv[3]),media/atoi(argv[3]));
