@@ -5,10 +5,15 @@ import os
 import time
 import time
 
-
-
-
 os.system('clear')
+
+def signal_handler(signal, frame):
+	print('\nSe ha pulsado Ctrl+C. Se cierra el socket.')
+	s.close()
+
+signal.signal(signal.SIGINT, signal_handler)
+
+
 if len(sys.argv) != 5:
 	print '\nEL USO CORRECTO ES: python %s <IP/Host> <Puerto> <Repeticiones> <Bytes>' % (sys.argv[0])
 	sys.exit()
@@ -38,13 +43,14 @@ v_max = 0
 v_min = 0
 
 for x in xrange(int(sys.argv[3])):
-	mensaje = str(mensaje).zfill(int(sys.argv[4])) 
+
+	mensaje = str(mensaje).zfill(int(sys.argv[4]))
 	try: 
 		s.send(mensaje)
 		time_u = time.clock()
 		#print '>>>Se ha enviado '+ str(len(mensaje)) +' bytes a la IP '+host_ip+':'+sys.argv[2]+'.'
 	except socket.error, msg:
-		print '\nNo se ha podido enviar los datos.\nTipo de error: ' + msg[1]
+		print '\nNo se ha podido enviar los datos o se ha pulsado CTRL+C.\nTipo de error: ' + msg[1]
 		break
 
 	try:

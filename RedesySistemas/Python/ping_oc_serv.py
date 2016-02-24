@@ -6,6 +6,14 @@ import os
 
 os.system('clear')
 
+def signal_handler(signal, frame):
+	print('\nSe ha pulsado Ctrl+C. Se cierra el socket.')
+	sc.close()
+	s.close()
+	sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
 if len(sys.argv) != 2:
 	print '\nEL USO CORRECTO ES: python %s <Puerto>' % (sys.argv[0])
 	sys.exit()
